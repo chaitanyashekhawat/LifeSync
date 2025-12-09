@@ -13,14 +13,14 @@ const corsOptions = {
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
 };
-app.use(cors({
-  origin: "https://life-sync-two.vercel.app",
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true
-}));
-app.use(cors(corsOptions));
-app.options("*", cors());
 
+// --- IMPORTANT: apply CORS once ONLY ---
+app.use(cors(corsOptions));
+
+// Handle preflight
+app.options('*', cors(corsOptions));
+
+// Middleware
 app.use(express.json());
 
 // Health Check Route

@@ -8,19 +8,7 @@ const app = express();
 
 // CORS Configuration
 const corsOptions = {
-    origin: function (origin, callback) {
-        console.log('Incoming origin:', origin);
-        // Allow requests with no origin (like mobile apps or curl requests)
-        if (!origin) return callback(null, true);
-
-        const allowedOrigins = ['http://localhost:5173', 'https://life-sync-two.vercel.app'];
-        if (allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            console.log('Blocked origin:', origin);
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
+    origin: ['http://localhost:5173', 'https://life-sync-two.vercel.app'],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
@@ -29,6 +17,11 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.use(express.json());
+
+// Health Check Route
+app.get('/', (req, res) => {
+    res.send('LifeSync Backend is running!');
+});
 
 // Routes
 app.use('/api/auth', require('./routes/authRoutes'));

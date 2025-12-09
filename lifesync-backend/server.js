@@ -13,8 +13,13 @@ const corsOptions = {
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
 };
-
+app.use(cors({
+  origin: "https://life-sync-two.vercel.app",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
 app.use(cors(corsOptions));
+app.options("*", cors());
 
 app.use(express.json());
 

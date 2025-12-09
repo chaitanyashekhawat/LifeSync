@@ -13,7 +13,8 @@ const corsOptions = {
         // Allow requests with no origin (like mobile apps or curl requests)
         if (!origin) return callback(null, true);
 
-        if (origin === 'http://localhost:5173') {
+        const allowedOrigins = ['http://localhost:5173', 'https://life-sync-two.vercel.app'];
+        if (allowedOrigins.includes(origin)) {
             callback(null, true);
         } else {
             console.log('Blocked origin:', origin);
